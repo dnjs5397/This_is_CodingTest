@@ -1,17 +1,13 @@
 N = int(input())
-count = 0
-while(N != 1):
-    if N % 5 == 0:
-        N /= 5
-        count += 1
-    elif N % 3 == 0:
-        N /= 3
-        count += 1
-    elif N % 2 == 0:
-        N /= 2
-        count += 1
-    else:
-        N -= 1
-        count += 1
+arr = [0] * (N+1)
 
-print(count)
+for i in range(2, N+1):
+    arr[i] = arr[i-1]+1
+    if i % 3 == 0:
+        arr[i] = min(arr[i], arr[i//3]+1)
+    if i % 2 == 0:
+        arr[i] = min(arr[i], arr[i//2]+1)
+    # elif i % 5 == 0:
+    #     arr[i] = min(arr[i], arr[i//5]+1)
+
+print(arr[N])
