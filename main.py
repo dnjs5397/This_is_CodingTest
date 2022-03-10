@@ -1,9 +1,12 @@
 N = int(input())
 people = list(map(int, input().split(' ')))
 people.sort()
-while(len(people)!=0):
-    num = people.pop()
-    cnt = 1
-    # for i in people:
-    #     if i <= num:
-            
+count = 0
+result = 0
+for i in people:
+    count += 1
+    if count >= i:
+        result += 1
+        count = 0
+
+print(result)
