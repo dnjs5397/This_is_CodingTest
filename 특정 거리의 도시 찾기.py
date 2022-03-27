@@ -1,28 +1,27 @@
 import sys
 
 N, M, K, X = map(int ,input().split(' '))
-visited = [False] * (N+1)
 graph = [[] for _ in range(N+1)]
+distance = [-1] * (N+1)
 for i in range(M):
     a, b = map(int, sys.stdin.readline().split(' '))
     graph[a].append(b)
-
+distance[X] = 0
 answer = []
 tmp = []
-tmp.append((X, 0))
+tmp.append(X)
 while tmp:
-    town, count = tmp.pop(0)
-    if count == K:
-        answer.append(town)
-    elif count < K:
-        for i in graph[town]:
-            if not visited[i]:
-                visited[i] = True
-                tmp.append((i, count+1))
+    town = tmp.pop(0) 
+    for i in graph[town]:
+        if distance[i] == -1:
+            distance[i] = distance[town] + 1
+            tmp.append(i)
                 
-if len(answer) == 0:
-    print(-1)
-else:
-    answer.sort()
-    for i in answer:
+check = False
+for i in range(1, N+1):
+    if distance[i] == K:
         print(i)
+        check = True
+
+if check == False:
+    print(-1)
