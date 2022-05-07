@@ -1,36 +1,53 @@
-import sys
-sys.setrecursionlimit(100000)
+survey = ["AN", "CF", "MJ", "RT", "NA"]
+choices = [5, 3, 2, 7, 5]
+test = {}
+test['R'] = 0
+test['T'] = 0
+test['C'] = 0
+test['F'] = 0
+test['J'] = 0
+test['M'] = 0
+test['A'] = 0
+test['N'] = 0
+for i in range(len(survey)):
+    if choices[i] == 4:
+        continue
+    elif choices[i] == 1:
+        test[survey[i][0]] += 3
+    elif choices[i] == 2:
+        test[survey[i][0]] += 2
+    elif choices[i] == 3:
+        test[survey[i][0]] += 1
+    else:
+        test[survey[i][1]] += (choices[i]-4)
 
-def dfs(v, e):
-    global s
-    visit[v] = True
-    s += doornum[v-1]
-    if v == e:
-        return
-    for num in graph[v]:
-        if not visit[num]:
-            dfs(num, e)
-            
+answer = ''
+if test['R'] > test['T']:
+    answer += 'R'
+elif test['R'] < test['T']:
+    answer += 'T'
+else:
+    answer += 'R'
 
+if test['C'] > test['F']:
+    answer += 'C'
+elif test['C'] < test['F']:
+    answer += 'F'
+else:
+    answer += 'C'
+    
+if test['J'] > test['M']:
+    answer += 'J'
+elif test['J'] < test['M']:
+    answer += 'M'
+else:
+    answer += 'J'
+    
+if test['A'] > test['N']:
+    answer += 'A'
+elif test['A'] < test['N']:
+    answer += 'N'
+else:
+    answer += 'A'
 
-
-N, Q = map(int, input().split(' '))
-doornum = list(map(str, input().split(' ')))
-graph = [ [] for i in range(N+1) ]
-answer = []
-
-for i in range(2, N+1):
-    a, b = map(int, input().split(' '))
-    graph[a].append(b)
-    graph[b].append(a)
-for i in graph:
-    i = i.sort()
-for i in range(Q):
-    start, end = map(int, input().split(' '))
-    s = ''
-    visit = [False] * (N+1)
-    dfs(start, end)
-    answer.append(int(s)%1000000007)
-
-for i in answer:
-    print(i)
+print(answer)
